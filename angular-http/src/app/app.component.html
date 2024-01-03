@@ -1,0 +1,141 @@
+<!-- MANAGE DEPARTMENTS -->
+
+<div class="main-area">
+  <div class="content-area">
+    <div class="header">
+      <h1>Manage Departments</h1>
+      <hr>
+    </div>
+    <div class="container">
+
+      <!--Add departments form-->
+      <div class="form-area">
+        <h3>Create Department</h3>
+        <form #departmentsForm="ngForm" (ngSubmit)="onDepartmentCreate(departmentsForm.value)">
+
+          <label>Department Name</label>
+          <input type="text" name="name" ngModel>
+      
+          <label>Department Description</label>
+          <input type="text" name="description" ngModel>
+      
+          <input type="submit" value="{{editMode ? 'Update Department' : 'Add Department'}}">
+
+        </form>
+      </div>
+
+      <div class="product-display-area">
+        <h3>All Departments</h3>
+        <table id="products">
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th></th>
+          </tr>
+          <tr *ngIf="allDeparments.length < 1 && errorMessage == null">
+            <td colspan="5">No departments available!</td>
+          </tr>
+          <tr *ngIf="isFetching && errorMessage == null">
+            <td colspan="5">Loading...</td>
+          </tr>
+          <tr *ngIf="errorMessage != null">
+            <td colspan="5">{{errorMessage}}</td>
+          </tr>
+          <tr *ngFor="let department of allDeparments; index as i">
+
+            <td>{{i+1}}</td>
+            <td>{{department.name}}</td>
+            <td>{{department.description}}</td>
+
+            <td>
+              <button class="btn-delete" style="margin-right: 2px;" (click)="onDeleteDepartment(department.id)">Delete</button>
+              <button class="btn-edit" (click)="onEditClickedDepartment(department.id)">Edit</button>
+            </td>
+
+          </tr>
+        </table>
+        <hr>
+        <div class="action-btn-container">
+          <button class="btn-fetch" (click)="onDepartmentsFetch()">Fetch departments</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- MANAGE EMPLOYEES -->
+
+<div class="main-area">
+  <div class="content-area">
+    <div class="header">
+      <h1>Manage Employees</h1>
+      <hr>
+    </div>
+    <div class="container">
+
+      <!--Add employee form-->
+      <div class="form-area">
+        <h3>Add Employees</h3>
+        <form #employeeForm="ngForm" (ngSubmit)="onEmployeeCreate(employeeForm.value)">
+
+          <label>Employee Name</label>
+          <input type="text" name="name" ngModel>
+      
+          <label>Employee Email</label>
+          <input type="text" name="email" ngModel>
+
+          <label>Is Manager?</label>
+          <input type="checkbox" name="isManager" checked="checked" ngModel>
+
+          <br>
+          <br>
+
+          <input type="submit" value="{{editMode ? 'Update Employee' : 'Add Employee'}}">
+
+        </form>
+      </div>
+
+      <!--Display employee area-->
+      <div class="product-display-area">
+        <h3>All Employees</h3>
+        <table id="products">
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Is Manager</th>
+            <th></th>
+          </tr>
+          <tr *ngIf="allEmployees.length < 1 && errorMessage == null">
+            <td colspan="5">No employees available!</td>
+          </tr>
+          <tr *ngIf="isFetching && errorMessage == null">
+            <td colspan="5">Loading...</td>
+          </tr>
+          <tr *ngIf="errorMessage != null">
+            <td colspan="5">{{errorMessage}}</td>
+          </tr>
+          <tr *ngFor="let employee of allEmployees; index as i">
+            
+            <td>{{i+1}}</td>
+            <td>{{employee.name}}</td>
+            <td>{{employee.email}}</td>
+            <td>{{employee.isManager}}</td>
+
+            <td>
+              <button class="btn-delete" style="margin-right: 2px;" (click)="onDeleteEmployee(employee.id)">Delete</button>
+              <button class="btn-edit" (click)="onEditClickedEmployee(employee.id)">Edit</button>
+            </td>
+
+          </tr>
+        </table>
+        <hr>
+        <div class="action-btn-container">
+          <button class="btn-fetch" (click)="onEmployeeFetch()">Fetch employees</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
